@@ -19,25 +19,25 @@ const Place = db.define('place', {
     allowNull: false
   },
   location: {
-    type: Sequelize.,
+    type: Sequelize.ARRAY(Sequelize.FLOAT),  // that's fine
     allowNull: false
   }
-})
+});
 
 const Hotel = db.define('hotel', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  num_stars:{
-    type: Sequelize.FLOAT(1,5),
+  num_stars: {
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   amenities: {
     type: Sequelize.STRING,
     allowNull: false
   }
-})
+});
 
 const Activity = db.define('activity', {
   name: {
@@ -48,7 +48,7 @@ const Activity = db.define('activity', {
     type: Sequelize.STRING,
     allowNull: false
   }
-})
+});
 
 const Restaurant = db.define('restaurant', {
   name: {
@@ -60,15 +60,22 @@ const Restaurant = db.define('restaurant', {
     allowNull: false
   },
   price: {
-    type: Sequelize.RANGE(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
+    validate: { min: 1, max: 5 },
     allowNull: false
   }
-})
+});
 
-// const Associations = db.define('associations', {
-//
-// })
+
+Hotel.belongsTo(Place);
+Activity.belongsTo(Place);
+Restaurant.belongsTo(Place);
+
 
 module.exports = {
-  db: db
-}
+  db: db,
+  Place: Place,
+  Restaurant: Restaurant,
+  Hotel: Hotel,
+  Activity: Activity
+};
