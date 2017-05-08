@@ -13,6 +13,8 @@ app.engine('html', nunjucks.render);
 
 
 app.use(express.static(__dirname + '/public'));
+app.use('/bootstrap',express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -33,8 +35,8 @@ app.use(function(err, req, res, next){
 
 db.sync()
   .then(function(){
-    app.listen(1337, function(){
-      console.log('listening on port 1337')
+    app.listen(3000, function(){
+      console.log('listening on port 3000')
     });
   });
 
